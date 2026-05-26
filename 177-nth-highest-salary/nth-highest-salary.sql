@@ -10,4 +10,5 @@ BEGIN
 
     );
 END
--- if we use return statement then not need to add that extra "select" to return null 
+/* if we use return statement then not need to add that extra "select" to return null & 
+remember offset can not be negative but can be zero and positive */

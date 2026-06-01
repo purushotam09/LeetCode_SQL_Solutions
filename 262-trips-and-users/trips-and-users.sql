@@ -15,12 +15,13 @@ WITH cte AS
 )
 SELECT
     request_at AS Day,
-    ROUND(
-        SUM(CASE 
-                WHEN status IN ('cancelled_by_driver', 'cancelled_by_client')
-                THEN 1 
-                ELSE 0 
-            END) * 1.0 / COUNT(*),
+    ROUND (AVG(
+    CASE
+        WHEN status IN ('cancelled_by_driver', 'cancelled_by_client')
+        THEN 1.0
+        ELSE 0.0
+    END
+),
         2
     ) AS [Cancellation Rate]
 FROM cte

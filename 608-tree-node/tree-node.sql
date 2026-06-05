@@ -1,0 +1,2 @@
+/* Write your T-SQL query statement below */
+select id , case when id in (select id from Tree except select p_id from Tree) and p_id IS NOT NULL then 'Leaf' when p_id IS NULL then 'Root' else 'Inner' end as type from Tree;

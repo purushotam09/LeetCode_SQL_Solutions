@@ -1,4 +1,6 @@
-/* Write your T-SQL query statement below */
+/* Write your T-SQL query statement below */  
 with cte as (
     select y.student_id, y.subject, min(exam_date) as min_date , max(exam_date) as max_date from Scores y group by y.student_id, y.subject having count(*)>=2
 ),cte2 as(select c.student_id as student_id, c.subject as subject,sum((case when exam_date = min_date then score end)) as first_score, sum((case when exam_date = max_date then score end)) as latest_score from cte c inner join Scores s on c.student_id = s.student_id and c.subject = s.subject and (c.min_date = s.exam_date or c.max_date = s.exam_date) group by c.student_id,c.subject)select * from cte2 where cte2.first_score < cte2.latest_score;
+
+-- we can done it using FIRST_VALUE() window function

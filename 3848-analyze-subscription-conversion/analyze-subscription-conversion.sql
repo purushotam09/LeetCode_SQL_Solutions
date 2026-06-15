@@ -1,0 +1,4 @@
+/* Write your T-SQL query statement below */
+with cte as( 
+    select user_id, sum(case when activity_type = 'free_trial' then 1 else 0 end) as free_trial, sum(case when activity_type = 'free_trial' then activity_duration else 0 end) as free_duration, sum(case when activity_type = 'paid' then 1 else 0 end) as paid, sum(case when activity_type = 'paid' then activity_duration else 0 end) as paid_duration from UserActivity group by user_id
+) select user_id,round(free_duration*1.0/free_trial,2) as trial_avg_duration, round(paid_duration*1.0/paid,2) as paid_avg_duration from cte where free_trial>=1 and paid>=1 ;

@@ -1,0 +1,4 @@
+/* Write your T-SQL query statement below */
+with cte1 as (
+    select t1.user_id, t1.product_id as product_id, t2.category from ProductPurchases t1 inner join ProductInfo t2 on t1.product_id = t2.product_id
+)select p1.product_id as product1_id,p2.product_id as product2_id,p1.category as product1_category,p2.category as product2_category,count(*) as customer_count from cte1 as p1 inner join cte1 as p2 on p1.user_id = p2.user_id and p1.product_id < p2.product_id group by p1.product_id,p2.product_id,p1.category,p2.category having count(*) >= 3 order by count(*) desc, p1.product_id asc, p2.product_id asc;
